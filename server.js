@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const config = require('config');
 
 require('dotenv').config();
 
@@ -10,12 +11,10 @@ app.use(express.json());
 
 const port = process.env.PORT || 5000;
 
+// db Config
+const db = config.get('MONGODB_URI');
 
-
-
-const uri = process.env.MONGODB_URI;
-
-mongoose.connect(uri, 
+mongoose.connect(db, 
 { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 
 const connection = mongoose.connection;
