@@ -9,6 +9,7 @@ import {
     NavLink,
     Container
 } from 'reactstrap';
+import Logout from './logout';
 
 class AppNavbar extends Component {
     state = {
@@ -34,7 +35,7 @@ class AppNavbar extends Component {
                                 <NavLink href="/">New Plan</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href='/'>Log Out</NavLink>
+                                <Logout />
                             </NavItem>
                         </Nav>
                     </Collapse>

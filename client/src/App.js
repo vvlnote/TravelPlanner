@@ -10,6 +10,7 @@ import { loadUser } from './actions/authActions';
 import AppNavbar from './components/AppNavbar';
 import LoginPage from './containers/loginPage';
 import RegisterPage from './containers/registerPage';
+import HomePage from './containers/homePage';
 
 class App extends Component {
   componentDidMount() {
@@ -23,7 +24,8 @@ class App extends Component {
           <AppNavbar />
           <br />
           <Switch>
-            <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/" component={HomePage}/>
+            <Route path="/login" component={LoginPage} />
             <Route path='/register' component={RegisterPage} />
           </Switch>
       </div>

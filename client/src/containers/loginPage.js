@@ -10,12 +10,11 @@ import {
 } from 'reactstrap';
 
 import { connect } from 'react-redux';
-import { register } from '../actions/authActions';
+import { login, logout } from '../actions/authActions';
 import { clearErrors } from '../actions/errorActions';
 
-class RegisterPage extends Component {
+class LoginPage extends Component {
     state = {
-        name: "",
         email: "",
         password: "",
         msg: null
@@ -24,7 +23,7 @@ class RegisterPage extends Component {
     componentDidUpdate(prevProps) {
         const { error }  = this.props;
         if (error !== prevProps.error) {
-            if (error.id === 'REGISTER_FAIL') {
+            if (error.id === 'LOGIN_FAIL') {
                 this.setState({ ...this.state, msg: error.msg.msg });
             } else {
                 this.setState({...this.state, msg:null});
@@ -36,47 +35,37 @@ class RegisterPage extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
-        
     }
+
     onSubmit = (e) => {
         e.preventDefault();
         this.props.clearErrors();
-        const { name, email, password } = this.state;
-        console.log(`name = ${name}, email = ${email}, password = ${password}`);
-        const newUser = {
-            name,
+        const { email, password } = this.state;
+
+        const user = {
             email,
             password
-        };
+        }
 
-        this.props.register(newUser);
+        this.props.login(user);
 
-    }
-
+    }    
+    
     render() {
         return(
             <Container className="col-md-6 col-md-offset-3" fluid="sm">
-            <h2>Welcome to TravlePlanner Register Page</h2>
+            <h2>Welcome to TravlePlanner Login Page</h2>
             <br/>
             <div>
             {this.state.msg ? (<Alert color='danger'>{this.state.msg}</Alert>): null}   
                 <Form onSubmit={this.onSubmit}>
                     <FormGroup>
-                        <Label for="name">Name</Label>
-                        <Input 
-                        type="text" 
-                        name="name" 
-                        id="name" 
-                        placeholder="Name"
-                        className="mb-3"
-                        onChange={this.onChange}
-                        />
                         <Label for="email">Email</Label>
                         <Input 
                         type="email" 
                         name="email" 
                         id="email" 
-                        placeholder="Please Enter email address as login name"
+                        placeholder="Email"
                         className="mb-3"
                         onChange={this.onChange}
                         />
@@ -90,14 +79,13 @@ class RegisterPage extends Component {
                         onChange={this.onChange}
                         /> 
                         <Button color='success' style={{ marginTop: '2rem'}}>
-                            Register
+                            Login
                         </Button>            
                     </FormGroup>
                 </Form>
             </div>
             </Container>
         );
-
     }
 }
 
@@ -106,4 +94,4 @@ const mapStateToProps = state => ({
     error: state.error
 })
 
-export default connect(mapStateToProps, { register, clearErrors })(RegisterPage);
+export default connect(mapStateToProps, { login, clearErrors, logout })(LoginPage);;
