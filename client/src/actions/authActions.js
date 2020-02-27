@@ -52,7 +52,6 @@ export const register = ({ name, email, password }) => dispatch => {
 }
 
 export const login = ({ email, password }) => dispatch => {
-    console.log(`in login, email = ${email}, password = ${password}`);
     const config = {
         headers: {
             'Content-Type': 'application/json'
