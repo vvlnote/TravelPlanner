@@ -10,6 +10,7 @@ import {
     Container
 } from 'reactstrap';
 import Logout from './logout';
+import HomePage from '../containers/homePage';
 
 class AppNavbar extends Component {
     state = {
@@ -31,9 +32,6 @@ class AppNavbar extends Component {
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
-                            <NavItem>
-                                <NavLink href="/">New Plan</NavLink>
-                            </NavItem>
                             <NavItem>
                                 <Logout />
                             </NavItem>
