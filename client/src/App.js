@@ -19,17 +19,17 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-      <Router>
+
       <div className="App">
           <AppNavbar />
           <br />
           <Switch>
-            <Route exact path="/" component={HomePage}/>
             <Route path="/login" component={LoginPage} />
             <Route path='/register' component={RegisterPage} />
+            <Route path="/home" component={HomePage} />
           </Switch>
       </div>
-      </Router>
+
       </Provider>
     );
   }
