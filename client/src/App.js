@@ -11,11 +11,12 @@ import AppNavbar from './components/AppNavbar';
 import LoginPage from './containers/loginPage';
 import RegisterPage from './containers/registerPage';
 import HomePage from './containers/homePage';
+import TestPage from './containers/testPage';
 
 class App extends Component {
-  componentDidMount() {
-    store.dispatch(loadUser());
-  }
+  // componentDidMount() {
+  //   store.dispatch(loadUser());
+  // }
   render() {
     return (
       <Provider store={store}>
@@ -24,9 +25,10 @@ class App extends Component {
           <AppNavbar />
           <br />
           <Switch>
-            <Route path="/login" component={LoginPage} />
-            <Route path='/register' component={RegisterPage} />
+            {/* <Route exact path="/" component={LoginPage} />
+            <Route path='/register' component={RegisterPage} /> */}
             <Route path="/home" component={HomePage} />
+            <Route path='/test' component={TestPage} />
           </Switch>
       </div>
 

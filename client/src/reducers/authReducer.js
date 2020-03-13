@@ -24,14 +24,16 @@ export default function(state = initialState, action) {
                 isLoading: true
             };
         case USER_LOADED:
+            console.log(action.payload)
             return {
                 ...state,
                 isAuthenticated: true,
-                isLoading: false
+                isLoading: false,
             };
         case LOGIN_SUCCESS:
         case REGISTER_SUCCESS:
             localStorage.setItem('token', action.payload.token);
+            localStorage.setItem('user', action.payload.user);
             return {
                 ...state,
                 ...action.payload,
@@ -51,6 +53,7 @@ export default function(state = initialState, action) {
                 isLoading: false
             };
         default:
+            console.log(state);
             return state;
     }
 }

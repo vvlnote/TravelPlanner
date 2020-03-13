@@ -11,6 +11,7 @@ import {
 
 import { connect } from 'react-redux';
 import { register } from '../actions/authActions';
+import { Link, Redirect } from 'react-router-dom';
 import { clearErrors } from '../actions/errorActions';
 
 class RegisterPage extends Component {
@@ -91,7 +92,8 @@ class RegisterPage extends Component {
                         /> 
                         <Button color='success' style={{ marginTop: '2rem'}}>
                             Register
-                        </Button>            
+                        </Button> 
+                        <Link to='/login' className='btn btn-link' style={{ marginTop: '2rem'}}>Cancel</Link>           
                     </FormGroup>
                 </Form>
             </div>

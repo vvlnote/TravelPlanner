@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 
 import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import { login, logout } from '../actions/authActions';
 import { clearErrors } from '../actions/errorActions';
 
@@ -19,6 +20,8 @@ class LoginPage extends Component {
         password: "",
         msg: null
     }
+
+
 
     componentDidUpdate(prevProps) {
         const { error }  = this.props;
@@ -52,14 +55,16 @@ class LoginPage extends Component {
     }    
     
     render() {
+
+
         return(
             <Container className="col-md-6 col-md-offset-3" fluid="sm">
             <h2>Welcome to TravlePlanner Login Page</h2>
             <br/>
             <div>
-            {this.state.msg ? (<Alert color='danger'>{this.state.msg}</Alert>): null}   
+            {this.state.msg ? (<Alert color='danger'>{this.state.msg}</Alert>): null} 
                 <Form onSubmit={this.onSubmit}>
-                    <FormGroup>
+                    <FormGroup> 
                         <Label for="email">Email</Label>
                         <Input 
                         type="email" 
@@ -80,8 +85,9 @@ class LoginPage extends Component {
                         /> 
                         <Button color='success' style={{ marginTop: '2rem'}}>
                             Login
-                        </Button>            
-                    </FormGroup>
+                        </Button> 
+                        <Link to='/register' className='btn btn-link' style={{ marginTop: '2rem'}}>Register</Link>           
+                    </FormGroup> 
                 </Form>
             </div>
             </Container>
@@ -91,7 +97,8 @@ class LoginPage extends Component {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user,
     error: state.error
 })
 
-export default connect(mapStateToProps, { login, clearErrors, logout })(LoginPage);;
+export default connect(mapStateToProps, { login, clearErrors, logout })(LoginPage);
