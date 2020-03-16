@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import  Map  from '../components/map/map';
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    geocodeByPlaceId,
+    getLatLng
+} from 'react-places-autocomplete';
 import {
     Button,
     Form,
@@ -14,17 +19,16 @@ import {
 
 class TestPage extends Component {
     state = {
-        lat: 0,
-        lng: 0
+        address: ''
     }
 
-    onChange = (e) => {
+    onChange = (address) => {
         this.setState({
-            [e.target.name]: e.target.value
+            address
         })
     }
     
-    onSubmit = (e) => {
+    onHandleSelect = (e) => {
         e.preventDefault();
 
     }
@@ -32,26 +36,33 @@ class TestPage extends Component {
         return (
             <div>
                 <h1>Welcome to Map Test page</h1>
-                <Map lat={Number(this.state.lat)} lng={ Number(this.state.lng) }/>
-                <Container>
-                <Form onSubmit={this.onSubmit}>
-                    <FormGroup>
-                    <label>Latitude: </label>
-                    <Input type='text' 
-                           name='lat'
-                           onChange={this.onChange} 
-                    />
-                    <Label>Longitude</Label>
-                    <Input type='text'
-                           name='lng'
-                           onChange={this.onChange}
-                    />
-                    <Button color='primary' style={{ marginTop: '2rem'}}>
-                        Mark
-                    </Button> 
-                    </FormGroup>
-                </Form>
-                </Container>
+                <PlacesAutocomplete
+                    value={this.state.address}
+                    onChange={this.onChange}
+                    onSelect={this.onHandleSelecct}
+                >
+                {({ getInputProps, suggestions, getSuggestionItemProps, loading}) => (
+                    <div>
+                        <Input {...getInputProps({
+                            placeholder: "Type a place...",
+                        })} />
+
+                    <div>
+                        {loading && <div>Loading...</div>}
+                        {suggestions.map(suggestion => {
+                            const style = {
+                                backgroundColor: suggestion.active? "#41b6e6" : "#fff"
+                            };
+                            return (<div {...getSuggestionItemProps(suggestion, {style})}> 
+                                {suggestion.description} 
+                                </div>
+                                );
+                        })}
+                    </div>
+                </div>
+                )}    
+                </PlacesAutocomplete>
+                <Map lat={0} lng={0}/>
             </div>
         );
     }
