@@ -19,17 +19,32 @@ import {
 
 class TestPage extends Component {
     state = {
-        address: ''
+        address: '',
+        lat: null,
+        lng: null
     }
 
-    onChange = (address) => {
+    onChange = (value) => {
         this.setState({
-            address
+            ...this.state,
+            address: value
         })
     }
     
-    onHandleSelect = (e) => {
-        e.preventDefault();
+    onHandleSelect = (address) => {
+        this.setState({
+            ...this.state,
+            address: address
+        })
+        geocodeByAddress(address)
+        .then(results => getLatLng(results[0]))
+        .then(latLng => {
+            this.setState({
+                ...this.state,
+                lat: latLng.lat,
+                lng: latLng.lng
+            })
+        })
 
     }
     render() {
@@ -43,15 +58,20 @@ class TestPage extends Component {
                 >
                 {({ getInputProps, suggestions, getSuggestionItemProps, loading}) => (
                     <div>
+                        <Label>Latitude: {this.state.lat}</Label>
+                        <br/>
+                        <Label>Longitude: {this.state.lng}</Label>
+                        <br/>
+
                         <Input {...getInputProps({
-                            placeholder: "Type a place...",
+                            placeholder: "Type a place or address ...",
                         })} />
 
                     <div>
                         {loading && <div>Loading...</div>}
                         {suggestions.map(suggestion => {
                             const style = {
-                                backgroundColor: suggestion.active? "#41b6e6" : "#fff"
+                                backgroundColor: suggestion.active? "#fff591" : "#fff"
                             };
                             return (<div {...getSuggestionItemProps(suggestion, {style})}> 
                                 {suggestion.description} 
